@@ -7,13 +7,14 @@ public class TankBehaviour : MonoBehaviour {
 	public float TranslateSpeed = 1f;
 	public float rotateSpeed = 1f;
 
+	public GameObject mine = null;
+
 	protected Color _originalColor;
 
 
 	void Start()
 	{
 		Transform renderers = transform.Find("TankRenderers");
-
 		_originalColor = renderers.Find("TankTurret").GetComponent<Renderer>().material.GetColor("_Color");
 	}
 
@@ -41,6 +42,20 @@ public class TankBehaviour : MonoBehaviour {
 		else if (Input.GetKey(KeyCode.LeftArrow))
 		{
 			transform.Rotate(-Vector3.up * Time.deltaTime * rotateSpeed);
+		}
+
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			if (mine != null)
+			{
+				// Esta linea hace lo mismo que las 2 siguientes
+				//GameObject placedMine = GameObject.Instantiate(mine, transform.position - (transform.forward * 1f), Quaternion.identity);
+
+				GameObject placedMine = GameObject.Instantiate(mine);
+				placedMine.transform.position = transform.position - (transform.forward*1f) ;
+
+				placedMine.AddComponent<MineBehaviour>();
+			}
 		}
 	}
 }
