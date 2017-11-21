@@ -55,6 +55,8 @@ public class TankBehaviour : MonoBehaviour {
 				placedMine.transform.position = transform.position - (transform.forward*1f) ;
 
 				placedMine.AddComponent<MineBehaviour>();
+
+				GameObject.Find("Main Camera").GetComponent<CameraBehaviour>().mine = placedMine;
 			}
 		}
 	}
